@@ -1,0 +1,4 @@
+libvirt-python
+openvswitch-switch
+libvirt-daemon-system
+qemu-kvm
