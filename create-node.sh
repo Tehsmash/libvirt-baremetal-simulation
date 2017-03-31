@@ -10,7 +10,7 @@ set -ex
 export PS4='+ ${BASH_SOURCE:-}:${FUNCNAME[0]:-}:L${LINENO:-}:   '
 
 # Keep track of the DevStack directory
-TOP_DIR=$(cd $(dirname "$0")/.. && pwd)
+TOP_DIR=$(cd $(dirname "$0") && pwd)
 
 while getopts "n:c:m:d:a:t:e:E:p:o:f:l:L:N:" arg; do
     case $arg in
@@ -95,7 +95,7 @@ if ! virsh list --all | grep -q $NAME; then
     if [[ -n "$EMULATOR" ]]; then
         vm_opts+="--emulator $EMULATOR "
     fi
-    $TOP_DIR/scripts/configure-vm.py \
+    $TOP_DIR/configure-vm.py \
         --bootdev network --name $NAME --image "$volume_path" \
         --arch $ARCH --cpus $CPU --memory $MEM --libvirt-nic-driver $LIBVIRT_NIC_DRIVER \
         --target $TARGET --disk-format $DISK_FORMAT $VM_LOGGING --engine $ENGINE $UEFI_OPTS $vm_opts >&2

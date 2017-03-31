@@ -14,6 +14,7 @@ LIBVIRT_STORAGE_POOL=${LIBVIRT_STORAGE_POOL:-"default"}
 LIBVIRT_CONNECT_URI=${LIBVIRT_CONNECT_URI:-"qemu:///system"}
 
 NAME=$1
+tapif=tap-$NAME
 
 export VIRSH_DEFAULT_CONNECT_URI=$LIBVIRT_CONNECT_URI
 
@@ -31,6 +32,5 @@ if virsh pool-list | grep -q $LIBVIRT_STORAGE_POOL ; then
         virsh vol-delete $VOL_NAME --pool $LIBVIRT_STORAGE_POOL
 fi
 
-sudo brctl delif br-$NAME ovs-$NAME || true
-sudo ip link set dev  br-$NAME down || true
-sudo brctl delbr br-$NAME || true
+sudo ovs-vsctl del-port $tapif
+sudo ip link del dev $tapif

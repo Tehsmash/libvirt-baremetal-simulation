@@ -19,8 +19,7 @@ import os.path
 import jinja2
 import libvirt
 
-templatedir = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                           'templates')
+templatedir = os.path.join(os.path.dirname(__file__), 'templates')
 
 
 CONSOLE_LOG = """
